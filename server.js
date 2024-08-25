@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const PORT = 3001;
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
@@ -18,8 +17,12 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 
-app.get('/api/notes', (req, res) =>
-res.send( fs.readFile('./db/db.json', 'utf8')));
+app.get('/api/notes', (req, res) =>{
+  const data = fs.readFileSync('./db/db.json', 'utf8')
+console.log(data),
+
+res.send()}
+)
 
 
 app.post('/api/notes', (req, res) => {
@@ -31,10 +34,9 @@ console.log(req.body)
     else {
         // Get the file contents after the append operation 
         console.log("\nFile Contents of file after append:",
-            fs.readFileSync("example_file.txt", "utf8"));
+            fs.readFileSync("./db/db.json", "utf8"));
     }})
-  
-  res.send()
+    res.send()
 });
 
 
