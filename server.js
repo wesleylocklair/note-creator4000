@@ -1,7 +1,7 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const PORT = 3001;
-
 const app = express();
 
 app.use(express.json());
@@ -19,12 +19,22 @@ app.get('/notes', (req, res) =>
 );
 
 app.get('/api/notes', (req, res) =>
-res.send('Do Later'));
+res.send( fs.readFile('./db/db.json', 'utf8')));
 
 
 app.post('/api/notes', (req, res) => {
 console.log(req.body)
-  res.send('Do Later')
+  fs.appendFile("./db/db.json",JSON.stringify(req.body), (err) => {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        // Get the file contents after the append operation 
+        console.log("\nFile Contents of file after append:",
+            fs.readFileSync("example_file.txt", "utf8"));
+    }})
+  
+  res.send()
 });
 
 
